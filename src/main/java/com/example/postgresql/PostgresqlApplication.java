@@ -27,38 +27,24 @@ public class PostgresqlApplication {
                     21
             );
             Student ahmed = new Student(
-                    "Ahmed",
+                    "Maria",
                     "Ali",
                     "ahmed.ali@amigoscode.edu",
-                    18
+                    21
             );
 //            studentRepository.save(maria);
             System.out.println("Adding maria and ahmed");
             studentRepository.saveAll(List.of(maria, ahmed));
-            System.out.print("Number of students: ");
-            System.out.println(studentRepository.count());
 
-            studentRepository
-                    .findById(2L)
-                    .ifPresentOrElse(
-                            System.out::println,
-                            () -> System.out.println("Student with ID 2 not found"));
+            studentRepository.findStudentByEmail("ahmed.ali@amigoscode.edu")
+                    .ifPresentOrElse(System.out::println,
+                            ()-> System.out.println("Student with email ahmed.ali@amigoscode.edu not found"));
 
-            studentRepository
-                    .findById(3L)
-                    .ifPresentOrElse(
-                            System.out::println,
-                            () -> System.out.println("Student with ID 3 not found"));
+            studentRepository.selectStudentWhereFirstNameAndAgeGreaterOrEqualNative("Maria",21)
+                    .forEach(System.out::println);
 
-            System.out.println("Select all students");
-            List<Student> students = studentRepository.findAll();
-            students.forEach(System.out::println);
-
-//            System.out.println("Delete maria");
-//            studentRepository.deleteById(1L);
-
-            System.out.print("Number of students: ");
-            System.out.println(studentRepository.count());
+//
+            System.out.println(studentRepository.deleteStudentById(22L));
         };
 
     }
