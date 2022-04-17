@@ -57,6 +57,16 @@ public class Student {
     )
     private Integer age;
 
+
+    @OneToOne( // relationship to studentIdCard
+            mappedBy = "student", // bidirectional relationship
+            orphanRemoval = true, // 也就是說，把學生移除時，學生卡會被自動移除。但是學生卡被移除時，學生不會被移除 (若設為false 刪學生時，學生卡就不會自動被刪)
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE}
+
+    )
+    private StudentIdCard studentIdCard;
+
+
     public Student(
 //            Long id,
                    String firstName,
