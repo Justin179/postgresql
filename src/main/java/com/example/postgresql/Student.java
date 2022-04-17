@@ -1,6 +1,11 @@
 package com.example.postgresql;
 
+import org.hibernate.annotations.Fetch;
+
 import javax.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -66,6 +71,61 @@ public class Student {
     )
     private StudentIdCard studentIdCard;
 
+    @OneToMany ( // one student to many books (前者One是主體)
+        mappedBy = "student",
+            orphanRemoval = true, // when remove a student, also remove books associate with the student
+            cascade = {CascadeType.PERSIST,CascadeType.REMOVE}, // student add book 就會直接寫進book table
+            // The cascade persist is used to specify that if an entity is persisted then all its associated child entities will also be persisted.
+            // CascadeType. REMOVE : It means that the related entities are deleted when the owning entity is deleted.
+            // CascadeType. DETACH. The detach operation removes the entity from the persistent context.
+            // When we use CascadeType. DETACH, the child entity will also get removed from the persistent context.
+            fetch = FetchType.EAGER // 要注意使用這個的效能，所以default 用lazy，真的需要才改為Eager
+    )
+    private List<Book> books = new ArrayList<>();
+
+
+
+    @OneToMany(
+            cascade = {CascadeType.PERSIST,CascadeType.REMOVE},
+            mappedBy = "student"
+    )
+    private List<Enrolment> enrolments = new ArrayList<>();
+
+    public List<Enrolment> getEnrolments() {
+        return enrolments;
+    }
+
+    public void addEnrolment(Enrolment enrolment) {
+        if (!enrolments.contains(enrolment)) {
+            enrolments.add(enrolment);
+        }
+    }
+
+    public void removeEnrolment(Enrolment enrolment) {
+        enrolments.remove(enrolment);
+    }
+
+
+    public void addBook(Book book) {
+        if (!this.books.contains(book)) {
+            this.books.add(book);
+            book.setStudent(this); // bi-directional
+        }
+    }
+    public void removeBook(Book book){
+        if(this.books.contains(book)){
+            this.books.remove(book);
+            book.setStudent(null);
+        }
+    }
+
+    public void setStudentIdCard(StudentIdCard studentIdCard){
+        this.studentIdCard = studentIdCard;
+    }
+
+    public List<Book> getBooks(){
+        return books;
+    }
 
     public Student(
 //            Long id,

@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @SpringBootApplication
@@ -20,20 +21,58 @@ public class PostgresqlApplication {
 
     @Bean
     CommandLineRunner commandLineRunner(
-            StudentRepository studentRepository,
-            StudentIdCardRepository studentIdCardRepository) {
+            StudentRepository studentRepository
+            ) {
 
         return args -> {
 
             Student student = makeAStudent();
 
-            StudentIdCard studentIdCard = new StudentIdCard("123456789", student);
+            StudentIdCard studentIdCard = new StudentIdCard("543219876", student);
+
+            student.addBook(
+                    new Book(LocalDateTime.now().minusDays(4), "Clean Code")
+            );
+            student.addBook(
+                    new Book(LocalDateTime.now(), "Think and Grow Rich")
+            );
+            student.addBook(
+                    new Book(LocalDateTime.now().minusYears(1), "Spring Data JPA")
+            );
+
+            student.addEnrolment(new Enrolment(
+                    new EnrolmentId(1L,1L),
+                    student,
+                    new Course("CS","IT"),
+                    LocalDateTime.now()
+            ));
+            student.addEnrolment(new Enrolment(
+                    new EnrolmentId(1L,2L),
+                    student,
+                    new Course("CS2","IT"),
+                    LocalDateTime.now()
+            ));
 
 
 //            studentIdCardRepository.save(studentIdCard);
-            studentRepository.findById(24L).ifPresent(System.out::println);
 
-            studentIdCardRepository.findById(1L).ifPresent(System.out::println);
+//            student.setStudentIdCard(studentIdCard);
+//            studentRepository.save(student);
+
+//            student.enrolToCourse(new Course("CS", "IT"));
+//            student.enrolToCourse(new Course("Spring Data JPA course", "IT"));
+
+            studentRepository.save(student);
+
+//            studentRepository.findById(24L).ifPresent(
+//                    s -> {
+//                        List<Book> books = student.getBooks();
+//                        books.forEach(book -> {
+//                            System.out.println(s.getFirstName() + " borrowed " + book.getBookName());
+//                        });
+//                    });
+
+//            studentIdCardRepository.findById(1L).ifPresent(System.out::println);
         };
 
     }
