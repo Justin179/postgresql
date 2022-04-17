@@ -66,22 +66,13 @@ public class PostgresqlApplication {
 
         return args -> {
 
-//            toDoItemRepo.deleteAll();
-//            toDoListRepo.deleteAll();
-//            toDoUserRepo.deleteAll();
-
-//            ToDoList list = makeAToDoList();
-//            toDoListRepo.save(list);
-
-//            ToDoUser user = makeAUser();
-//            toDoUserRepo.save(user);
-
+            /*
             // 新增一個清單(內含三項目)
-//            ToDoList list = makeAToDoList();
-//            for (int i = 0; i<3; i++){
-//                list.addItem(makeAItem()); // 在一個清單中，加入三個項目
-//            }
-//            toDoListRepo.save(list);
+            ToDoList list = makeAToDoList();
+            for (int i = 0; i<3; i++){
+                list.addItem(makeAItem()); // 在一個清單中，加入三個項目
+            }
+            toDoListRepo.save(list);
 
             // 查詢清單及其項目
             toDoListRepo.findById(2l).ifPresent(toDoList -> {
@@ -112,18 +103,38 @@ public class PostgresqlApplication {
 
             // 刪除
             toDoListRepo.findById(2l).ifPresent(toDoListRepo::delete);
+            */
+
+
+            // 使用者新增清單
+//            ToDoUser user = makeAUser();
+//            ToDoList list = makeAToDoList();
+//            for (int i = 0; i<3; i++){
+//                list.addItem(makeAItem()); // 在一個清單中，加入三個項目
+//            }
+//            user.addUserListMapper(new UserListMapper(
+//                    new UserListMapperId(1l,1l),
+//                    user,
+//                    list
+//            ));
+//            toDoUserRepo.save(user);
+
+            toDoUserRepo.findById(2l).ifPresent(toDoUser -> {
+                toDoUser.getUserListMappers();
+
+            });
 
 
 
-//            student.addBook(
-//                    new Book(LocalDateTime.now().minusDays(4), "Clean Code")
-//            );
-//            student.addBook(
-//                    new Book(LocalDateTime.now(), "Think and Grow Rich")
-//            );
-//            student.addBook(
-//                    new Book(LocalDateTime.now().minusYears(1), "Spring Data JPA")
-//            );
+            // 查詢清單及其項目
+//            toDoListRepo.findById(2l).ifPresent(toDoList -> {
+//                System.out.println("fetch list wz items: " + toDoList);
+//                List<ToDoItem> items = toDoList.getItems();
+//                items.forEach(toDoItem -> {
+//                    System.out.println(toDoList.getName() + " -> " + toDoItem.getName());
+//                });
+//            });
+
 
 //            student.addEnrolment(new Enrolment(
 //                    new EnrolmentId(1L,1L),
