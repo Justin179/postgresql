@@ -37,14 +37,25 @@ public class PostgresqlApplication {
         return list;
     }
 
+//    private User makeAUser() {
+//        Faker faker = new Faker();
+//        String username = faker.name().username();
+//        User user = new User(username);
+//        return user;
+//    }
+
     @Bean
-    CommandLineRunner commandLineRunner(ToDoListRepo toDoListRepo) {
+    CommandLineRunner commandLineRunner(
+            ToDoListRepo toDoListRepo) {
 
         return args -> {
 
-            ToDoList list = makeAToDoList();
-            toDoListRepo.save(list);
-//
+//            ToDoList list = makeAToDoList();
+//            toDoListRepo.save(list);
+
+
+
+
 //            StudentIdCard studentIdCard = new StudentIdCard("543219876", student);
 //
 //            student.addBook(

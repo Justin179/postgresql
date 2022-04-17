@@ -72,6 +72,27 @@ public class ToDoList {
         return items;
     }
 
+
+    @OneToMany(
+            cascade = {CascadeType.PERSIST,CascadeType.REMOVE},
+            mappedBy = "toDoList"
+    )
+    private List<UserListMapper> userListMappers = new ArrayList<>();
+
+    public List<UserListMapper> getUserListMappers() {
+        return userListMappers;
+    }
+
+    public void addUserListMapper(UserListMapper userListMapper) {
+        if (!userListMappers.contains(userListMapper)) {
+            userListMappers.add(userListMapper);
+        }
+    }
+
+    public void removeUserListMapper(UserListMapper userListMapper) {
+        userListMappers.remove(userListMapper);
+    }
+
     // ------------------------------- auto generated below
 
     public ToDoList() {
