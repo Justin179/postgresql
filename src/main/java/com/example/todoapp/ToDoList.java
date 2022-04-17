@@ -62,6 +62,7 @@ public class ToDoList {
             item.setToDoList(this); // bi-directional
         }
     }
+
     public void removeItem(ToDoItem item){
         if(this.items.contains(item)){
             this.items.remove(item);
@@ -133,6 +134,7 @@ public class ToDoList {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", dueDate=" + dueDate +
+                ", items=" + items +
                 '}';
     }
 }
