@@ -26,23 +26,33 @@ public class ListServiceImpl implements ListService {
     @Override
     public ToDoList getListById(Long listId) throws Exception {
         Optional<ToDoList> list = listRepo.findById(listId);
-
-        if (list.isPresent())
-            return list.get();
-        else
-            throw new Exception("listId: "+listId+ " not found");
+        return list.orElse(null);
     }
 
     @Override
     public Integer createList(ToDoList toDoList) {
 
-        ToDoList list = makeAToDoList();
-        for (int i = 0; i<3; i++){
-            list.addItem(makeAItem()); // 在一個清單中，加入三個項目
-        }
-        ToDoList save = listRepo.save(list);
-
+//        ToDoList list = makeAToDoList();
+//        for (int i = 0; i<3; i++){
+//            list.addItem(makeAItem()); // 在一個清單中，加入三個項目
+//        }
+        listRepo.save(toDoList);
         return 1;
+    }
+
+    private ToDoList makeAToDoList() {
+        Faker faker = new Faker();
+        String name = faker.name().name();
+        ToDoList list = new ToDoList(name, LocalDateTime.now());
+        return list;
+    }
+
+    private ToDoItem makeAItem() {
+        Faker faker = new Faker();
+        String name = faker.name().name();
+        String description = faker.commerce().productName();
+        ToDoItem item = new ToDoItem(name, description, LocalDateTime.now());
+        return item;
     }
 
     @Override
@@ -67,12 +77,7 @@ public class ListServiceImpl implements ListService {
     }
 
 
-    private ToDoList makeAToDoList() {
-        Faker faker = new Faker();
-        String name = faker.name().name();
-        ToDoList list = new ToDoList(name, LocalDateTime.now());
-        return list;
-    }
+
 
     private ToDoUser makeAUser() {
         Faker faker = new Faker();
@@ -81,12 +86,6 @@ public class ListServiceImpl implements ListService {
         return user;
     }
 
-    private ToDoItem makeAItem() {
-        Faker faker = new Faker();
-        String name = faker.name().name();
-        String description = faker.commerce().productName();
-        ToDoItem item = new ToDoItem(name, description, LocalDateTime.now());
-        return item;
-    }
+
 
 }

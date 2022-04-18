@@ -5,9 +5,7 @@ import com.example.todoapp.service.ListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ListController {
@@ -23,6 +21,17 @@ public class ListController {
             return ResponseEntity.status(HttpStatus.OK).body(list);
         else
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+    @PostMapping("/lists")
+    public ResponseEntity<ToDoList> createProduct(@RequestBody ToDoList toDoList) throws Exception {
+        Integer res = listService.createList(toDoList);
+        if (res==1)
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        else
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
+
+
     }
 
 }

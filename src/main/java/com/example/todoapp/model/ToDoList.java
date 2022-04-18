@@ -1,5 +1,8 @@
 package com.example.todoapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 import java.time.LocalDateTime;
@@ -50,7 +53,7 @@ public class ToDoList {
             // CascadeType. REMOVE : It means that the related entities are deleted when the owning entity is deleted.
             // CascadeType. DETACH. The detach operation removes the entity from the persistent context.
             // When we use CascadeType. DETACH, the child entity will also get removed from the persistent context.
-            fetch = FetchType.EAGER // 要注意使用這個的效能，所以default 用lazy，真的需要才改為Eager
+            fetch = FetchType.LAZY // 要注意使用這個的效能，所以default 用lazy，真的需要才改為Eager
     )
     private List<ToDoItem> items = new ArrayList<>();
 
@@ -72,10 +75,12 @@ public class ToDoList {
     }
 
 
+
     @OneToMany(
             cascade = {CascadeType.PERSIST,CascadeType.REMOVE},
             mappedBy = "toDoList"
     )
+    @JsonIgnore
     private List<UserListMapper> userListMappers = new ArrayList<>();
 
     public List<UserListMapper> getUserListMappers() {

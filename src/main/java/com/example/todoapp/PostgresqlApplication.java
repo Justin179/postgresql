@@ -25,41 +25,6 @@ public class PostgresqlApplication {
         SpringApplication.run(PostgresqlApplication.class, args);
     }
 
-    private Student makeAStudent() {
-        Faker faker = new Faker();
-        String firstName = faker.name().firstName();
-        String lastName = faker.name().lastName();
-        String email = String.format("%s.%s@amigoscode.edu", firstName, lastName);
-        Student student = new Student(
-                firstName,
-                lastName,
-                email,
-                faker.number().numberBetween(17, 55));
-        return student;
-    }
-
-    private ToDoList makeAToDoList() {
-        Faker faker = new Faker();
-        String name = faker.name().name();
-        ToDoList list = new ToDoList(name, LocalDateTime.now());
-        return list;
-    }
-
-    private ToDoUser makeAUser() {
-        Faker faker = new Faker();
-        String username = faker.name().username();
-        ToDoUser user = new ToDoUser(username);
-        return user;
-    }
-
-    private ToDoItem makeAItem() {
-        Faker faker = new Faker();
-        String name = faker.name().name();
-        String description = faker.commerce().productName();
-        ToDoItem item = new ToDoItem(name, description, LocalDateTime.now());
-        return item;
-    }
-
     @Bean
     @Transactional
     CommandLineRunner commandLineRunner(
@@ -191,6 +156,41 @@ public class PostgresqlApplication {
 //                .forEach(student -> System.out.println(student.getFirstName()
 //                        + " " + student.getAge()));
 //    }
+
+    private Student makeAStudent() {
+        Faker faker = new Faker();
+        String firstName = faker.name().firstName();
+        String lastName = faker.name().lastName();
+        String email = String.format("%s.%s@amigoscode.edu", firstName, lastName);
+        Student student = new Student(
+                firstName,
+                lastName,
+                email,
+                faker.number().numberBetween(17, 55));
+        return student;
+    }
+
+    private ToDoList makeAToDoList() {
+        Faker faker = new Faker();
+        String name = faker.name().name();
+        ToDoList list = new ToDoList(name, LocalDateTime.now());
+        return list;
+    }
+
+    private ToDoUser makeAUser() {
+        Faker faker = new Faker();
+        String username = faker.name().username();
+        ToDoUser user = new ToDoUser(username);
+        return user;
+    }
+
+    private ToDoItem makeAItem() {
+        Faker faker = new Faker();
+        String name = faker.name().name();
+        String description = faker.commerce().productName();
+        ToDoItem item = new ToDoItem(name, description, LocalDateTime.now());
+        return item;
+    }
 
     private void generateRandomStudents(StudentRepository studentRepository) {
         Faker faker = new Faker();

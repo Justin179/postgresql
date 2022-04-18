@@ -39,8 +39,7 @@ public class ToDoUser {
 
     @OneToMany(
             cascade = {CascadeType.PERSIST,CascadeType.REMOVE},
-            mappedBy = "user",
-            fetch = FetchType.EAGER
+            mappedBy = "user"
     )
     private List<UserListMapper> userListMappers = new ArrayList<>();
 

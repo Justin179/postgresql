@@ -21,4 +21,6 @@ public interface ToDoListRepo extends JpaRepository<ToDoList, Long> {
             "join user_list_mapper ulm on u.id = ulm.user_id " +
             "join todolist l on l.id = ulm.list_id where u.id=:userId", nativeQuery = true)
     List<ToDoList> findListByUserIdNative(@Param("userId") long userId);
+
+
 }
