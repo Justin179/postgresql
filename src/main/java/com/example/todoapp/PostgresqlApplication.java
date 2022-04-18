@@ -10,11 +10,17 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import java.awt.*;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @SpringBootApplication
 public class PostgresqlApplication {
@@ -59,6 +65,7 @@ public class PostgresqlApplication {
     }
 
     @Bean
+    @Transactional
     CommandLineRunner commandLineRunner(
             ToDoUserRepo toDoUserRepo,
             ToDoListRepo toDoListRepo,
@@ -106,24 +113,31 @@ public class PostgresqlApplication {
             */
 
 
-            // 使用者新增清單
+            // 新增1使用者 新增2清單(內含三項目)
 //            ToDoUser user = makeAUser();
 //            ToDoList list = makeAToDoList();
+//            ToDoList list2 = makeAToDoList();
 //            for (int i = 0; i<3; i++){
 //                list.addItem(makeAItem()); // 在一個清單中，加入三個項目
+//                list2.addItem(makeAItem()); // 在一個清單中，加入三個項目
 //            }
 //            user.addUserListMapper(new UserListMapper(
-//                    new UserListMapperId(1l,1l),
+//                    new UserListMapperId(),
 //                    user,
 //                    list
 //            ));
+//            user.addUserListMapper(new UserListMapper(
+//                    new UserListMapperId(),
+//                    user,
+//                    list2
+//            ));
 //            toDoUserRepo.save(user);
 
-            toDoUserRepo.findById(2l).ifPresent(toDoUser -> {
-                toDoUser.getUserListMappers();
-
-            });
-
+            // 查出某個使用者 手上的清單
+            List<ToDoList> lists = toDoListRepo.findListByUserIdNative(6L);
+            for (ToDoList list : lists){
+                System.out.println(list.getId());
+            }
 
 
             // 查詢清單及其項目

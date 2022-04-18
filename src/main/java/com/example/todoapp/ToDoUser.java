@@ -1,6 +1,7 @@
 package com.example.todoapp;
 
 import com.example.postgresql.Enrolment;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 
@@ -41,9 +42,11 @@ public class ToDoUser {
 
     @OneToMany(
             cascade = {CascadeType.PERSIST,CascadeType.REMOVE},
-            mappedBy = "user"
+            mappedBy = "user",
+            fetch = FetchType.EAGER
     )
     private List<UserListMapper> userListMappers = new ArrayList<>();
+
 
     public List<UserListMapper> getUserListMappers() {
         return userListMappers;
