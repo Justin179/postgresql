@@ -38,7 +38,7 @@ public class ListController {
 
     // many to many : students to subjects
     // 學生加進科目
-    @PutMapping("/{listId}/students/{userId}")
+    @PutMapping("/{listId}/users/{userId}")
     List_ addUserToList(
             @PathVariable Long listId,
             @PathVariable Long userId
@@ -49,16 +49,11 @@ public class ListController {
         return listRepository.save(list);
     }
 
-    // one to many : one teacher to many subjects
-    // 每個科目，都會指定一個老師 (每個項目，都會指定一個清單)
-    @PutMapping("/{listId}/item/{itemId}")
-    List_ assignItemToList(
-            @PathVariable Long listId,
-            @PathVariable Long itemId
-    ) {
-        List_ list = listRepository.findById(listId).get();
-        Item_ item = itemRepository.findById(itemId).get();
-        list.setItem(item); // 每個科目，都會指定一個老師
-        return listRepository.save(list);
+    @PutMapping("/{listId}")
+    List_ updateList(@PathVariable Long listId, @RequestBody List_ list) {
+        List_ list_ = listRepository.findById(listId).get();
+        list_.setName(list.getName());
+        list_.setDueDate(list.getDueDate());
+        return listRepository.save(list_);
     }
 }

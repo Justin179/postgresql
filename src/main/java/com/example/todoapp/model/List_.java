@@ -4,6 +4,7 @@ package com.example.todoapp.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,6 +33,7 @@ public class List_ {
         return this.items;
     }
     public void setItem(Item_ item) {
+        items.add(item);
     }
 
     @Id
@@ -39,6 +41,10 @@ public class List_ {
     Long id;
 
     private String name;
+
+    private Date dueDate;
+
+
 
     public Long getId() {
         return id;
@@ -52,6 +58,12 @@ public class List_ {
         this.name = name;
     }
 
+    public Date getDueDate() {
+        return dueDate;
+    }
 
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
+    }
 
 }

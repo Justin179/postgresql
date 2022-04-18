@@ -24,3 +24,17 @@ public class UserController {
         return userRepository.save(user);
     }
 }
+
+
+
+
+//    @PutMapping("/{userId}/lists/{listId}")
+//    User_ addListToUser(
+//            @PathVariable Long listId,
+//            @PathVariable Long userId
+//    ) {
+//        List_ list = listRepository.findById(listId).get();
+//        User_ user = userRepository.findById(userId).get();
+//        user.getLists().add(list);
+//        return userRepository.save(user);
+//    }
