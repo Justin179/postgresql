@@ -2,6 +2,9 @@ package com.example.todoapp;
 
 import com.example.postgresql.Student;
 import com.example.postgresql.StudentRepository;
+import com.example.todoapp.model.ToDoItem;
+import com.example.todoapp.model.ToDoList;
+import com.example.todoapp.model.ToDoUser;
 import com.example.todoapp.repo.ToDoItemRepo;
 import com.example.todoapp.repo.ToDoListRepo;
 import com.example.todoapp.repo.ToDoUserRepo;
@@ -12,15 +15,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
-import java.awt.*;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @SpringBootApplication
 public class PostgresqlApplication {
@@ -134,10 +130,10 @@ public class PostgresqlApplication {
 //            toDoUserRepo.save(user);
 
             // 查出某個使用者 手上的清單
-            List<ToDoList> lists = toDoListRepo.findListByUserIdNative(6L);
-            for (ToDoList list : lists){
-                System.out.println(list.getId());
-            }
+//            List<ToDoList> lists = toDoListRepo.findListByUserIdNative(6L);
+//            for (ToDoList list : lists){
+//                System.out.println(list.getId());
+//            }
 
 
             // 查詢清單及其項目

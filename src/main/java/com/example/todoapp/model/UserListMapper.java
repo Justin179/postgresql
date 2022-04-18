@@ -1,7 +1,4 @@
-package com.example.todoapp;
-
-import com.example.postgresql.Course;
-import com.example.postgresql.Student;
+package com.example.todoapp.model;
 
 import javax.persistence.*;
 

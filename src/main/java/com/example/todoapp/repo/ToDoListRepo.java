@@ -1,13 +1,12 @@
 package com.example.todoapp.repo;
 
-import com.example.postgresql.Student;
-import com.example.todoapp.ToDoList;
+import com.example.todoapp.model.ToDoList;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Transactional
 public interface ToDoListRepo extends JpaRepository<ToDoList, Long> {
@@ -20,6 +19,6 @@ public interface ToDoListRepo extends JpaRepository<ToDoList, Long> {
      */
     @Query(value = "select l.* from todouser u " +
             "join user_list_mapper ulm on u.id = ulm.user_id " +
-            "join todolist l on l.id = ulm.list_id where u.id=?1", nativeQuery = true)
-    List<ToDoList> findListByUserIdNative(long userId);
+            "join todolist l on l.id = ulm.list_id where u.id=:userId", nativeQuery = true)
+    List<ToDoList> findListByUserIdNative(@Param("userId") long userId);
 }

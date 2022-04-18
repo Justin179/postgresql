@@ -1,6 +1,4 @@
-package com.example.todoapp;
-
-import com.example.postgresql.Book;
+package com.example.todoapp.model;
 
 import javax.persistence.*;
 

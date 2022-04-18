@@ -1,7 +1,4 @@
-package com.example.todoapp;
-
-import com.example.postgresql.Enrolment;
-import org.springframework.transaction.annotation.Transactional;
+package com.example.todoapp.model;
 
 import javax.persistence.*;
 

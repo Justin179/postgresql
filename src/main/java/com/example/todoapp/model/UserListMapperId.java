@@ -1,4 +1,4 @@
-package com.example.todoapp;
+package com.example.todoapp.model;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
